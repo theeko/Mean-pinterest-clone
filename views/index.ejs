@@ -6,29 +6,42 @@
     <link rel="stylesheet" href="/stylesheets/custom.css">
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="/lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/javascripts/angularApp.js"></script>
+    <script src="/javascripts/angularFactory.js"></script>
+    <script src="/javascripts/angularCtrls.js"></script>
   </head>
   <body ng-app="myApp">
-    <div class="col-md-3 left-side">
-      <div class="links"ng-controller="NavCtrl">
-        <ul class="nav navbar-nav navbar-left">
-          <li ng-show="isLoggedIn()"><a ng-href="/#/profile">{{ currentUser() }}</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li class="text-right" ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
-          <li class="text-right" ng-hide="isLoggedIn()"><a ng-href="/auth/twitter">Log In</a></li>
-        </ul>
-      </div>
-      <div class="ctext text-center">
-        <h1>PintClone</h1>
-      </div>
-      <div class="imgpostbutton text-center">
-        <button>Post Image</button>
+    <!--<div class="col-md-3 left-side" ng-controller="NavCtrl">-->
+    <!--  <div class="links" >-->
+    <!--    <ul class="nav navbar-nav navbar-left">-->
+    <!--      <li ng-show="currentUser"><a ng-href="/#/profile">{{ currentUser }}</a></li>-->
+    <!--    </ul>-->
+    <!--    <ul class="nav navbar-nav navbar-right">-->
+    <!--      <li class="text-right" ng-show="currentUser"><a href="" ng-click="logOut()">Log Out</a></li>-->
+    <!--      <li class="text-right" ng-hide="currentUser"><a ng-href="/auth/twitter">Log In</a></li>-->
+    <!--    </ul>-->
+    <!--  </div>-->
+    <!--  <div class="ctext text-center">-->
+    <!--    <h1 >PintClone</h1>-->
+    <!--  </div>-->
+    <!--  <div class="imgpostbutton text-center">-->
+    <!--    <button ng-show="currentUser">Post Image</button>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+    	<div class="navbar-header">	
+    		<div class="navbar-brand"><a href="#/home">PintClone</a></div>
+    	</div>
+        <ul class="nav navbar-nav navbar-right" ng-controller="NavCtrl">
+            <li ><a ng-href="/#/polls">All</li>
+            <li ng-show="user[0]"><a ng-href="/#/profile">{{ user[0]}}</a></li>
+            <li ng-show="user[0]"><a href="" ng-click="logOut()">Log Out</a></li>
+            <li ng-hide="user[0]"><a ng-href="/auth/twitter">Log In</a></li>
+          </ul>
       </div>
     </div>
-    <div class="col-md-9">
       <ui-view></ui-view>
-    </div>
   </body>
 </html>

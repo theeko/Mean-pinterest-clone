@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Images = mongoose.model('Images');
 var express = require('express');
 var jwt = require('express-jwt');
 var passport = require('passport')
@@ -21,8 +22,25 @@ router.get('/auth/twitter/callback',
     res.redirect('/');
 });
 
-router.get('/currentUser', function(req, res, next) {
-    res.json(req.user);
+router.get("/getuser", function(req, res, next) {
+   res.json(req.user);
 });
+
+router.get('/logout', function(req, res){
+    req.logout();
+    res.json();
+});
+
+router.post("/newimage", function (req,res,next) {
+  var image = new Images(req.body);
+  console.log(req.body);
+  
+  image.save(function (err,img) {
+    if(err){ return next(err); }
+    res.json(img);
+  });
+  
+});
+
 
 module.exports = router;

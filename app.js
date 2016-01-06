@@ -1,3 +1,9 @@
+require('./models/Users');
+require('./models/Images');
+var mongoose = require('mongoose');
+
+var User = mongoose.model('User');
+var Images = mongoose.model('Images');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,9 +12,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var twitterStrategy = require('passport-twitter').Strategy;
-var mongoose = require('mongoose');
-require('./models/Users');
+
 require('dotenv').load();
+require("./config/passport");
 
 mongoose.connect(process.env.mongo_uri)
 //mongoose.connect('mongodb://localhost/images') //Local testing DB path
@@ -35,7 +41,6 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/users', users);
 
-var User = mongoose.model('User');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,35 +48,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-//twitter login
-passport.use(new twitterStrategy({
-    consumerKey: process.env.TWITTER_CONSUMER_KEY,
-    consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: 'https://pinterest-clone-kairath.c9users.io/auth/twitter/callback'
-  },
-  function(token, tokenSecret, profile, cb) {
-    User.findOne({username: profile.screen_name}, function(err, response) {
-      if(err){ return; }
-        if(!response) {
-            var person = new User();
-            person.username = profile.screen_name;
-                
-            person.save();
-        }
-    })
-    return cb(null, profile);
-  }));
-
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
-});
-
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
-});
-
-
 
 // development error handler
 // will print stacktrace
