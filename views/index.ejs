@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/javascripts/angularApp.js"></script>
-    <script src="/javascripts/angularFactory.js"></script>
+    <script src="/javascripts/angularFactories.js"></script>
     <script src="/javascripts/angularCtrls.js"></script>
   </head>
   <body ng-app="myApp">
@@ -36,6 +36,7 @@
     	</div>
         <ul class="nav navbar-nav navbar-right" ng-controller="NavCtrl">
             <li ><a ng-href="/#/polls">All</li>
+            <li ng-show="user[0]"><a ng-href="/#/newimage">New Img/link</a></li>
             <li ng-show="user[0]"><a ng-href="/#/profile">{{ user[0]}}</a></li>
             <li ng-show="user[0]"><a href="" ng-click="logOut()">Log Out</a></li>
             <li ng-hide="user[0]"><a ng-href="/auth/twitter">Log In</a></li>

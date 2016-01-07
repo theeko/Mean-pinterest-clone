@@ -17,19 +17,47 @@ app.config([
                     }]
                 }
             })
-            
+            .state("newimage", {
+              url: "/newimage",
+              templateUrl: "newimage.html",
+              controller: "newimageCtrl"
+            })
             .state('profile', {
                 url: '/profile',
                 templateUrl: '/profile.html',
                 controller: 'ProfileCtrl',
+                onEnter: ["imgfac", "auth", function(imgfac, auth){
+                    imgfac.getImages("Kairath");
+                }],
                 resolve: {
-                    userimgs: ['imgFac',"auth", function(imgFac,auth) {
-                        return imgFac.getImages(auth.getUser());
-                    }],
+                    currentUser: ['auth', function (auth) {
+                        return auth.getUser();
+                    }]
                 }
-            });
+              });
         
         $urlRouterProvider.otherwise('home');
+}]);
+
+angular.module("myApp").factory('auth', ['$http', function($http) {
+    var o = {
+        user: []
+    };
+    
+    o.getUser = function() {
+        return $http.get('/getuser').success(function(data) {
+            console.log(data);
+          o.user.push(data.displayName);
+        });
+    };
+    
+    o.logout = function () {
+        return $http.get('/logout').success(function() {
+            window.location.href = ""
+        });
+    }
+    
+    return o;
 }]);
 
 

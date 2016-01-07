@@ -26,12 +26,23 @@ router.get("/getuser", function(req, res, next) {
    res.json(req.user);
 });
 
+router.get("/userimages/:user", function(req, res, next) {
+  console.log("/userimages/:username router")
+  console.log(req.user.displayName);
+   Images.findBy({user: req.user.displayName}, function (err,imgz) {
+     if(err){ next(err);}
+     if(!!imgz){ res.send("no record found"); }
+     res.json(imgz);
+   });
+});
+
 router.get('/logout', function(req, res){
     req.logout();
     res.json();
 });
 
 router.post("/newimage", function (req,res,next) {
+  console.log("newimage router");
   var image = new Images(req.body);
   console.log(req.body);
   
@@ -42,5 +53,13 @@ router.post("/newimage", function (req,res,next) {
   
 });
 
+router.get("/userimages/:uname", function(req, res, next) {
+  console.log("/userimages/:uname router");
+  console.log(req.uname);
+   Images.findBy({ user: req.uname},function(err, imgz) {
+      if (err) {next(err) }
+      res.json(imgz);
+   }); 
+});
 
 module.exports = router;
