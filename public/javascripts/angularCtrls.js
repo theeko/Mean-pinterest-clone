@@ -7,15 +7,19 @@ angular.module("myApp").controller('MainCtrl', [
     }
 ]);
 
-angular.module("myApp").controller("ProfileCtrl", ["$scope","imgfac", "auth","currentUser",function($scope, auth,imgfac,currentUser){
-  $scope.user = auth.getUser;
+angular.module("myApp").controller("ProfileCtrl", ["$scope","imgfac", "auth",function($scope,imgfac,auth){
+  $scope.user = auth.getUser();
+  console.log($scope.user);
   $scope.imgs = imgfac.img;
 }]);
 
-angular.module("myApp").controller("newimageCtrl", ["$scope","imgfac", "auth",function($scope, auth,imgfac){
-  $scope.user = auth.getUser;
+angular.module("myApp").controller("newimageCtrl", ["$scope","imgfac", "auth","currentUser",function($scope, imgfac,auth,currentUser){
+  $scope.user = currentUser.data.displayName;
   $scope.imgs = imgfac.img;
-  $scope.createNewImg = function (imgtitle,desc,imgurl) {
+  $scope.createNewImg = function () {
+    console.log("newimgCtrl createNewImg func")
+    console.log($scope.user);
+    imgfac.postImage({title: $scope.imgtitle,desc: $scope.desc,url:$scope.imgurl, user: currentUser.data.displayName});
     $scope.imgtitle = "";
     $scope.desc = "";
     $scope.imgurl = "";

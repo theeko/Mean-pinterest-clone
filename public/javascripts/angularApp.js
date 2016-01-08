@@ -20,20 +20,24 @@ app.config([
             .state("newimage", {
               url: "/newimage",
               templateUrl: "newimage.html",
-              controller: "newimageCtrl"
+              controller: "newimageCtrl",
+               resolve: {
+                    currentUser: ['auth', function (auth) {
+                        return auth.getUser();
+                    }]
+                }
             })
             .state('profile', {
                 url: '/profile',
                 templateUrl: '/profile.html',
                 controller: 'ProfileCtrl',
-                onEnter: ["imgfac", "auth", function(imgfac, auth){
-                    imgfac.getImages("Kairath");
-                }],
-                resolve: {
-                    currentUser: ['auth', function (auth) {
-                        return auth.getUser();
+                // resolve: {
+                //     uimages: ["imgfac","auth", function(imgfac,auth){
+                //         return imgfac.getImages(auth.getUser().data.displayName);
+                //     }]
+                onEnter: ['imgfac', 'auth', function(imgfac, auth) {
+                        return imgfac.getImages("Kairath");
                     }]
-                }
               });
         
         $urlRouterProvider.otherwise('home');
@@ -59,5 +63,7 @@ angular.module("myApp").factory('auth', ['$http', function($http) {
     
     return o;
 }]);
+
+
 
 

@@ -5,7 +5,6 @@ angular.module("myApp").factory('auth', ['$http', function($http) {
     
     o.getUser = function() {
         return $http.get('/getuser').success(function(data) {
-            console.log(data);
           o.user[0] = data.displayName;
         });
     };
@@ -24,7 +23,7 @@ angular.module("myApp").factory("imgfac", ["auth", "$http", function (auth, $htt
     x.getImages = function (uname) {
         console.log("imgfac getImages");
         console.log(uname);
-        return $http.get("/userimages/" + uname).success(function (data) {
+        $http.get("/userimages/" + uname).success(function (data) {
             x.img = [];
             x.img.push(data);
         });
@@ -36,13 +35,13 @@ angular.module("myApp").factory("imgfac", ["auth", "$http", function (auth, $htt
             angular.copy(data, x.img);
         });
     };
-   x.postImage = function (imglink) {
-       console.log("kasjd");
-        // $http.post("/createimglink", imglink).success(function (data) {
-        //  x.img.push(data);
-        //  window.location.href = "#profile"
-      };
    
+   x.postImage = function(imglink) {
+       console.log("imgfac postimage func");
+        return $http.put('/newimage', imglink).success(function(data) {
+            x.img.push(data);
+        })
+    }
    
    return x;
 }]);

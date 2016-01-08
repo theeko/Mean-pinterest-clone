@@ -8,7 +8,7 @@
     user: String,
     desc: String,
     url: String,
-    upvoters: String,
+    upvoters: [String],
     votes: {type:Number, default:0 }
   });
   
