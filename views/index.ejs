@@ -1,15 +1,9 @@
 <html>
   <head>
-    <title>Booktrade App</title>
+    <title>PintClone</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" >
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/stylesheets/custom.css">
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="/javascripts/angularApp.js"></script>
-    <script src="/javascripts/angularFactories.js"></script>
-    <script src="/javascripts/angularCtrls.js"></script>
   </head>
   <body ng-app="myApp">
     <div class="navbar navbar-default navbar-static-top">
@@ -18,7 +12,7 @@
     		<div class="navbar-brand"><a href="#/home">PintClone</a></div>
     	</div>
         <ul class="nav navbar-nav navbar-right" ng-controller="NavCtrl">
-            <li ><a ng-href="/#/polls">All</li>
+            <li ><a ng-href="/#/allimages">All</li>
             <li ng-show="user[0]"><a ng-href="/#/newimage">New Img/link</a></li>
             <li ng-show="user[0]"><a ng-href="/#/profile">{{ user[0]}}</a></li>
             <li ng-show="user[0]"><a href="" ng-click="logOut()">Log Out</a></li>
@@ -27,5 +21,15 @@
       </div>
     </div>
       <ui-view></ui-view>
+      
+      
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/javascripts/masonry.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/javascripts/angularApp.js"></script>
+    <script src="/javascripts/angularFactories.js"></script>
+    <script src="/javascripts/angularCtrls.js"></script>
+    <script src="/javascripts/custom.js"></script>
   </body>
 </html>

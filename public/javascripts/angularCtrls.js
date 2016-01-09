@@ -7,10 +7,20 @@ angular.module("myApp").controller('MainCtrl', [
     }
 ]);
 
-angular.module("myApp").controller("ProfileCtrl", ["$scope","imgfac", "auth",function($scope,imgfac,auth){
-  $scope.user = auth.getUser();
-  console.log($scope.user);
-  $scope.imgs = imgfac.img;
+angular.module("myApp").controller("ProfileCtrl", ["$scope","imgfac", "auth","uimages",function($scope,imgfac,auth,uimages){
+  $scope.user = localStorage.getItem("user");
+  $scope.imgs = uimages.data;
+  $scope.imgdelete = function(imgid){
+    imgfac.deleteImg(imgid);
+  };
+}]);
+
+angular.module("myApp").controller("allimagesCtrl", ["$scope","imgfac", "auth","allimages","currentUser",function($scope,imgfac,auth,allimages,currentUser){
+  $scope.user = currentUser.data.displayName;
+  $scope.imgs = allimages.data;
+  $scope.imgdelete = function(imgid){
+    imgfac.deleteImg(imgid);
+  };
 }]);
 
 angular.module("myApp").controller("newimageCtrl", ["$scope","imgfac", "auth","currentUser",function($scope, imgfac,auth,currentUser){
@@ -25,17 +35,6 @@ angular.module("myApp").controller("newimageCtrl", ["$scope","imgfac", "auth","c
     $scope.imgurl = "";
   }
   
-  // rewrite deletcurrentUser andpolleck upvote
-  $scope.deleteimg = function(id, poll){
-    if($scope.user == img.author){
-    imgfac.delete(id);
-     window.location.href = "/";
-    }
-  };
-  $scope.upvote= function(poll, pollid,index){
-    if(!!$scope.user == false ){ return; }
-    imgfac.upvote(poll, pollid,index);
-  };
 
 }]);
 

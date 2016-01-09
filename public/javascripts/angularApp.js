@@ -31,39 +31,33 @@ app.config([
                 url: '/profile',
                 templateUrl: '/profile.html',
                 controller: 'ProfileCtrl',
-                // resolve: {
-                //     uimages: ["imgfac","auth", function(imgfac,auth){
-                //         return imgfac.getImages(auth.getUser().data.displayName);
-                //     }]
-                onEnter: ['imgfac', 'auth', function(imgfac, auth) {
-                        return imgfac.getImages("Kairath");
+                resolve: {
+                    uimages: ["imgfac","auth", function(imgfac,auth){
+                        return imgfac.getImages(localStorage.getItem("user"));
                     }]
+                }
+                // onEnter: ['imgfac', 'auth', function(imgfac, auth) {
+                //         return imgfac.getImages("Kairath");
+                //     }]
+              })
+              .state('allimages', {
+                url: '/allimages',
+                templateUrl: '/allimages.html',
+                controller: 'allimagesCtrl',
+                resolve: {
+                    allimages: ["imgfac","auth", function(imgfac,auth){
+                        return imgfac.getAllImages();
+                    }],
+                    currentUser: ['auth', function (auth) {
+                        return auth.getUser();
+                    }]
+                }
+                // onEnter: ['imgfac', 'auth', function(imgfac, auth) {
+                //         return imgfac.getAllImages(localStorage.getItem("user"));
+                //     }]
               });
         
         $urlRouterProvider.otherwise('home');
 }]);
 
-angular.module("myApp").factory('auth', ['$http', function($http) {
-    var o = {
-        user: []
-    };
     
-    o.getUser = function() {
-        return $http.get('/getuser').success(function(data) {
-            console.log(data);
-          o.user.push(data.displayName);
-        });
-    };
-    
-    o.logout = function () {
-        return $http.get('/logout').success(function() {
-            window.location.href = ""
-        });
-    }
-    
-    return o;
-}]);
-
-
-
-
