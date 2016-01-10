@@ -8,20 +8,21 @@
   <body ng-app="myApp">
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
-    	<div class="navbar-header">	
-    		<div class="navbar-brand"><a href="#/home">PintClone</a></div>
-    	</div>
-        <ul class="nav navbar-nav navbar-right" ng-controller="NavCtrl">
-            <li ><a ng-href="/#/allimages">All</li>
-            <li ng-show="user[0]"><a ng-href="/#/newimage">New Img/link</a></li>
-            <li ng-show="user[0]"><a ng-href="/#/profile">{{ user[0]}}</a></li>
-            <li ng-show="user[0]"><a href="" ng-click="logOut()">Log Out</a></li>
-            <li ng-hide="user[0]"><a ng-href="/auth/twitter">Log In</a></li>
-          </ul>
+      	<div class="navbar-header">	
+      		<div class="navbar-brand"><a href="#/home">PintClone</a></div>
+      	</div>
+      	  <ul class="nav navbar-nav navbar-right" ng-controller="NavCtrl">
+          <li ng-show="user[0]"><a ng-href="/#/newimage">New Pin</a></li>
+          <li ng-show="user[0]"><a ng-href="/#/profile">{{ user[0]}}</a></li>
+          <li ng-show="user[0]"><a href="#" ng-click="logOut()">Log Out</a></li>
+          <li ng-hide="user[0]"><a ng-href="/auth/twitter">Log In</a></li>
+        </ul>
       </div>
     </div>
+    
+    <div class="container">
       <ui-view></ui-view>
-      
+    </div>
       
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/javascripts/masonry.min.js"></script>

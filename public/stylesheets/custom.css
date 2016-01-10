@@ -1,7 +1,10 @@
-.jcont {padding: 40px; margin-top: -30px; background: #4183D7; color: #d3d3d3;}
-.fa-book { font-size: 6em; padding-bottom: 20px; }
-.left-side {background: #3498DB; height: 100%;}
-.ctext { height: 20%; margin-top: 80%; }
 .imgpostbutton button {  border: 2px solid black; padding: 13px; background: #d3d3d3; border-radius: 6px;}
 .allimages {background: red; }
-.imgz {width: 33%; display: inline-block;}
+.grid { position:relative; display: inline-block;}
+.grid .grid-item { width: 260px; display: inline-block; position:relative; margin-left: 20px;}
+.grid .grid-item img { width: 96%; margin: auto;}
+.grid-item span { position: absolute; top: 20px; right: 20px; }
+.fa-thumbs-up {margin-left: 8px;   padding: 3px;}
+.newimgform input { margin-top: 6px; }
+.newimgform button { margin-top: 6px; }
+.imguname { position: absolute; bottom:0; right:0; margin: 0 5px 5px 0; }

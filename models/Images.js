@@ -12,12 +12,12 @@
     votes: {type:Number, default:0 }
   });
   
-  ImageSchema.upvote = function (index,username, cb) {
-    if(this.upvoters.indexOf(username) == -1){
-      this.votes += 1;
-      this.upvoters.push(username);
-    } this.save(cb);
-  }
+  // ImageSchema.upvote = function (username, cb) {
+  //   if(this.upvoters.indexOf(username) == -1){
+  //     this.votes += 1;
+  //     this.upvoters.push(username);
+  //   } this.save(cb);
+  // };
   
   mongoose.model('Images', ImageSchema);
 })();

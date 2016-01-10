@@ -1,7 +1,8 @@
 <div class="container">
   <div class="col-md-6 col-md-offset-3 text-center">
+    <div ng-show="msg">{{msg}}</div>
       <h3>New Img/link</h3>
-      <form class="form-group" ng-submit="createNewImg()">
+      <form class="form-group newimgform" ng-submit="createNewImg()">
           <input type="text" class="form-control" placeholder="title" ng-model="imgtitle">
           <input type="text" class="form-control" placeholder="decription" ng-model="desc">
           <input type="text" class="form-control" placeholder="url" ng-model="imgurl">

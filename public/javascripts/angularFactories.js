@@ -13,7 +13,7 @@ angular.module("myApp").factory('auth', ['$http', function($http) {
     o.logout = function () {
         return $http.get('/logout').success(function() {
           localStorage.setItem("user", null);
-            window.location.href = "";
+            window.location.href = "/";
         });
     }
     
@@ -37,6 +37,18 @@ angular.module("myApp").factory("imgfac", ["auth", "$http", function (auth, $htt
             angular.copy(data, x.img);
         });
     };
+    
+    x.upvote = function(data){
+         $http.put("/upvoteimg", data).success(function(data) {
+          console.log("imgfac upvote func succes");
+          for(var i=0; i< x.img[0].length; i++){
+              if(x.img[0][i]._id == data._id){
+                   x.img[0][i].vote = data.vote;
+                   window.location.reload();
+              }
+          }
+        });
+    }
    
    x.postImage = function(imglink) {
        console.log("imgfac postimage func");
@@ -47,7 +59,7 @@ angular.module("myApp").factory("imgfac", ["auth", "$http", function (auth, $htt
     
     x.deleteImg = function(imgid) {
         $http.delete("/deleteimg/" + imgid).success(function (data) {
-            window.location.href = "";
+            window.location.reload();
         })
     }
    

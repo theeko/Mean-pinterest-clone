@@ -28,10 +28,25 @@ router.get("/getuser", function(req, res, next) {
 
 router.get("/userimages/:user", function(req, res, next) {
   console.log("/userimages/:username router")
-  console.log(req.user.displayName);
-  Images.find({user: req.user.displayName}, function (err,imgz) {
+  console.log(req.params.user);
+  Images.find({user: req.params.user}, function (err,imgz) {
     if(err){ next(err);}
     res.json(imgz);
+  });
+});
+
+router.put("/upvoteimg",function(req, res, next) {
+  console.log("upvoteimg router");
+  if(req.body.user == undefined){ res.send(" need to login for vote"); }
+  Images.findOne({ _id: req.body.imid },function (err, img) {
+    if(err){ next(err) }
+    if(req.body.user == img.user){ res.send("cant upvote own img"); }
+     else if(img.upvoters.indexOf(req.body.user) == -1){
+      img.votes += 1;
+      img.upvoters.push(req.body.user);
+      img.save();
+      res.send(img);
+    } else { res.send("ok") }
   });
 });
 
@@ -42,10 +57,16 @@ router.get('/logout', function(req, res){
 
 router.post("/newimage", function (req,res,next) {
   console.log("newimage router");
+  if(req.body.user == undefined){
+    console.log("need to loging for submitting img")
+    res.send("need to loging for submitting img");
+  } else {
+    
   var image = new Images(req.body);
-  console.log(req.body);
+  
   image.save();
   res.json(image);
+  }
   
 });
 

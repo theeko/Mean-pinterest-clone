@@ -1,8 +1,10 @@
 
-<div ng-repeat="img in imgs" class="grid container ">
-    <div class="grid-item imgz">
+<div ng-repeat="img in imgs[0]" class="grid ">
+    <div class="grid-item imgz well">
+        <div class="imguname">Pinned by: {{img.user}}</div>
         <h3>{{img.title}}</h3>
-        <img ng-src="{{img.url}}" alt="{{img.desc}}"/><span>{{img.votes}}</span>
-        <p>{{img.desc}}</p><button class="btn btn-danger" ng-click="imgdelete(img._id)">delete</button>
+        <img ng-src="{{img.url}}" alt="{{img.desc}}" onerror="$(this).attr('src','broken.jpg');"/>
+        <span>votes: {{img.votes}}<i class="fa fa-thumbs-up" ng-click="upvoteimg(img._id)"></i></span>
+        <p>{{img.desc}}</p><button ng-show="{{img.user == user}}" class="btn btn-danger" ng-click="imgdelete(img._id)">delete</button>
     </div>
 </div>

@@ -9,9 +9,12 @@ app.config([
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: 'home.html',
-                controller: 'MainCtrl',
+                templateUrl: 'allimages.html',
+                controller: 'allimagesCtrl',
                 resolve: {
+                    allimages: ["imgfac","auth", function(imgfac,auth){
+                        return imgfac.getAllImages();
+                    }],
                     currentUser: ['auth', function (auth) {
                         return auth.getUser();
                     }]
@@ -39,6 +42,16 @@ app.config([
                 // onEnter: ['imgfac', 'auth', function(imgfac, auth) {
                 //         return imgfac.getImages("Kairath");
                 //     }]
+              })
+              .state('otheruserwall', {
+                url: '/uimages/{user}',
+                templateUrl: '/profile.html',
+                controller: 'ProfileCtrl',
+                resolve: {
+                    uimages: ["imgfac","auth","$stateParams", function(imgfac,auth,$stateParams){
+                        return imgfac.getImages($stateParams.user);
+                    }]
+                }
               })
               .state('allimages', {
                 url: '/allimages',
