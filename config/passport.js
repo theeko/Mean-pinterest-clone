@@ -8,7 +8,7 @@ var User = mongoose.model('User');
 passport.use(new twitterStrategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: 'https://pinterest-clone-kairath.c9users.io/auth/twitter/callback'
+    callbackURL: 'https://vast-thicket-9171.herokuapp.com/auth/twitter/callback'
   },
   function(token, tokenSecret, profile, cb) {
     User.findOne({username: profile.screen_name}, function(err, response) {
